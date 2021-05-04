@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Jouw boom - unieke pagina voor elke boom van Kwekerij Culinair</title>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/css/ol.css" type="text/css">
+    <style>
+      .map {
+        height: 400px;
+        width: 100%;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
+
+</head>
+<body>
+
+<script>
+ function buttonPosition() {
+                    
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var positionInfo = "Je boom is geplant op (" + "latitude: " + position.coords.latitude + ", " + "longitude: " + position.coords.longitude + ")";
+                document.getElementById("result").innerHTML = positionInfo;
+                let data = {
+                    longitude : position.coords.longitude, 
+                    latitude: position.coords.latitude ,
+                    id : "'{{ p.IDNr }}'", 
+                    genus : "'{{ p.Genus }}'",
+                    species : "'{{ p.Species }}'", 
+                    cultivar : "'{{ p.Cultivar }}'"                    
+                };
+                
+                fetch('/1/saver_json.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                        },
+                    body: JSON.stringify(data)
+                    });
+                var map = new ol.Map({
+                    target: 'map',
+                    layers: [
+                    new ol.layer.Tile({
+                            source: new ol.source.OSM()
+                            })
+                        ],
+                        view: new ol.View({
+                        center: ol.proj.fromLonLat([position.coords.longitude, position.coords.latitude]),
+                        zoom: 18
+                            })
+                    });
+                });
+                        
+        } else {
+            alert("Sorry, your browser does not support HTML5 geolocation.");
+        }
+    }
+
+</script>
+
+    
+
+<h1 style="color: #5e9ca0;"><span style="color: #008000;">Kwekerij Culinair - jouw boom online</span></h1>
+<h2 style="color: #2e6c80;"><span style="color: #000000;">BoomID: {{ p.IDNr }} 
+<p>&nbsp;</p>
+Soort: {{ p.Dutch }} - <em> {{ p.Genus }} {{ p.Species }} {{ p.Cultivar }} </em> </span><br />
+<br />
+<p>&nbsp;</p>
+<span style="color: #000000;"> Zaad/enthout van {{ p.From_where }}</span></h2>
+<p>&nbsp;</p>
+<h3 style="color: #2e6c80;"><span style="color: #000000;">(Ge&euml;nt op {{ p.Date_grafted }} / gezaaid op {{ p.Date_seeded }})</span></h3>
+<p>Wikipedia pagina met meer info: <a href="http://en.wikipedia.org/wiki/{{ p.Genus }}_{{ p.Species }}">http://en.wikipedia.org/</a></p>
+<p>&nbsp;</p>
+<p>Naar <a href="https://kwekerijculinair.nl/recepten_{{ p.Genus }}"> Culinaire recepten voor jouw boom/struik </a>!</p>
+<p>&nbsp;</p>
+<p>Naar <a href="https://kwekerijculinair.nl">Kwekerij Culinair</a>!</p>
+<p><a href="https://kwekerijculinair.nl"><img src="https://www.kwekerijculinair.nl/p/logo.png" alt="" width="160" height="248" /></a></p>
+
+<p>&nbsp;</p>
+
+
+    Als je je boom hebt geplant - graag de locatie met ons delen door op deze knop te drukken. We maken een open-source kaart van alle bomen die mee willen doen in een genetische bibliotheek.
+
+<button type="button" onclick="buttonPosition();"> Geef Geolocation/GPS door - hier heb ik mijn boom geplant </button>
+  
+  <div id="result">
+        <!--Position information will be inserted here-->
+    </div>
+   <p>&nbsp;</p>
+  Hier komt de kaart als je de geolocation doorgeeft - check dat het klopt! Je kunt ook een mail sturen met de coordinaten van jouw boom.   
+<p>&nbsp;</p>
+
+  <div id="map" class="map"></div>
+
+</body>
+</html>
