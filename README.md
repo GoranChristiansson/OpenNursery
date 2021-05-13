@@ -1,7 +1,7 @@
 # OpenNursery
 Software for running a small scale tree nursery
 
-v0.1, 2021-05-03 Goran Christiansson/KwekerijCulinair.nl - a collection of software tools that we developed for our nut tree nursery.
+v0.1, 2021-05-03 Goran Christiansson/Trees for Peace Foundation - a collection of software tools that we developed for our nut tree nursery.
 Feel free to use and share alike. The first publicly shared sourcecode in May 2021 is rough, but works for us. At some point of time in the future, we will release a new version that is easier to customize for your plant nursery.
 
 
