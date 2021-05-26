@@ -13,13 +13,14 @@ import csv
 
 class Inventory:
     
-    plants = []
-    fields = []
+    #plants = []
+    #fields = []
     
     def load_inventory_from_csv( self, filename ):
             csvfile = open(filename )
             reader = csv.reader(csvfile, delimiter=',', quotechar='"')
             self.fields = next(reader)
+            self.plants = []
             # Check file as empty
             if self.fields != None:
                 for row in reader:
