@@ -26,11 +26,20 @@ class Inventory:
                 for row in reader:
                     # TODO - add string.rstrip() for all elements in the row, to eliminate trailing spaces.
                     self.plants.append( row )
-            
+            csvfile.close()
             #print("loaded file with fields: ")
             #print( self.fields )
             #for p in self.plants:
              #   print( p )
+             
+
+    def save_inventory_to_csv( self, filename ):
+            csvfile = open(filename , "w")
+            writer = csv.writer(csvfile,  delimiter=',', quotechar='"', lineterminator="\n")
+            writer.writerows([self.fields])
+            writer.writerows(self.plants)
+            csvfile.close()
+             
                 
     def get_items( self, field, text):
         # Get a list of items with the "field" matching "text"
@@ -65,16 +74,17 @@ class Inventory:
     
 if __name__ == "__main__":
     inventory = Inventory()
-    inventory.load_inventory_from_csv( "main_inventory_ver_1.csv")
+    inventory.load_inventory_from_csv( "main_inventory_ver_2.csv")
     
-    plist = inventory.get_items("Species","triloba")
+    #plist = inventory.get_items("Species","triloba")
+    #for p in plist:
+    #    print(p)
+    plist = inventory.get_items("IDNr","21-0010")
     for p in plist:
         print(p)
-    plist = inventory.get_items("IDNr","19-0010")
-    for p in plist:
-        print(p)
-    plist = inventory.get_items_multiple(["Genus","Species"],["Castanea","mollissima"])
-    for p in plist:
-        print(p)
+        
+    #plist = inventory.get_items_multiple(["Genus","Species"],["Castanea","mollissima"])
+    #for p in plist:
+    #    print(p)
     
     
