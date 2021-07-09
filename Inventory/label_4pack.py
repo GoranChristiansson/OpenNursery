@@ -33,7 +33,8 @@ if __name__ == "__main__":
         print( "Only generating new 4pack labels, not overwriting old labels")
     else:
         print("Generating new 4pack labels of all labels, overwriting existing labels.")
-    filelist = glob.glob( "labels/*.png" )
+    filelist = sorted( glob.glob( "labels/*.png" ) )
+    
     filelist.append(" ")
     filelist.append(" ")
     filelist.append(" ")
@@ -52,8 +53,12 @@ if __name__ == "__main__":
         f3 = filelist[ packnr +2 ]
         f4 = filelist[ packnr +3 ]
         
-        printFilename = "labels/4pack/4pack_"+ os.path.basename(f1)
-        printedFilename = "labels/4pack/printed/4pack_"+ os.path.basename(f1)
+        #printFilename = "labels/4pack/4pack_"+ os.path.basename(f1)
+        #printedFilename = "labels/4pack/printed/4pack_"+ os.path.basename(f1)
+        # - changed 2021-05-03 - less folder depth
+
+        printFilename = "4pack/4pack_"+ os.path.basename(f1)
+        printedFilename = "4pack/printed/4pack_"+ os.path.basename(f1)
         if( os.path.exists( printFilename) and ONLY_NEW):
             print("skipping existing: " + printFilename )
             pass # - don't make a new 4-pack if the file exists

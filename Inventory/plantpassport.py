@@ -57,7 +57,7 @@ class Plantpassport:
         self.EUflag = wand.image.Image(filename = 'EUflag60black.png')
         
         #self.EUflag = wand.image.Image(filename = 'EUflag200.png')
-        self.EUleaf = wand.image.Image(filename = 'EUleaf200.png')
+        self.EUleaf = wand.image.Image(filename = 'EUleaf200black.png')
         self.Logo = wand.image.Image(filename = '2021-logo-side-w-text-bw_100.png')
         self.Butterfly= wand.image.Image(filename = 'butterfly_75.png')
         
